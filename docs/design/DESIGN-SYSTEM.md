@@ -67,14 +67,12 @@ components:
     textColor: "{colors.parchment}"
     rounded: "{rounded.node}"
     padding: "14px"
-  chip-today:
-    backgroundColor: "{colors.olive-button}"
+  node-column:
     textColor: "{colors.parchment}"
-    rounded: "{rounded.node}"
-  chip-planned:
-    backgroundColor: "{colors.field-ink}"
+    dividerColor: "{colors.panel-rim}"
+  node-column-planned:
     textColor: "{colors.khaki}"
-    rounded: "{rounded.node}"
+    dividerColor: "{colors.panel-rim}"
   badge-key:
     backgroundColor: "{colors.field-ink}"
     textColor: "{colors.parchment}"
@@ -148,7 +146,7 @@ Both products use the same palette, type, spacing, marks, motion and voice. The 
 | | CAPIE | Rename Anything |
 |---|---|---|
 | Name on first mention | CAPIE (Cyprian's API Extender) | Rename Anything |
-| Mark (badge/icon variant) | Three-slot connector | Pencil |
+| Mark (app and release icon only) | Three-slot connector | Pencil |
 | Leads on | Release pages, launcher, CLI, section for modders, in-game CAPIE indicators | Workshop page, top of the README, in-game panels |
 
 **The Endorsement Rule.** On a Rename Anything surface, CAPIE appears once, as the line "Built on
@@ -170,19 +168,20 @@ game's signal colours for state. Colour roles describe what a thing is, never wh
 belongs to.
 
 ### Primary
-- **Olive Button** (`olive-button`): the fill of buttons and of "works today" chips. Sampled from
-  vanilla `button_123x34.dds`. Hover and chip strokes use **Olive Lit** (`olive-lit`).
+- **Olive Button** (`olive-button`): the fill of buttons and of the value part of a "supported"
+  badge. Sampled from vanilla `button_123x34.dds`. Hover uses **Olive Lit** (`olive-lit`).
 - **Pencil Green** (`pencil-green`, `pencil-green-lit`): the edit affordance. Taken from the
   notepad in vanilla `edit_notes_button.dds`, the sprite the in-game pencils use.
 
 ### Secondary
-- **Brass** (`brass`): the native layer. Outlines the library in diagrams, rims badges, colours
-  "planned" tags. Sampled from the vanilla close button. **Brass Dim** (`brass-dim`) is for dashed
+- **Brass** (`brass`): the native layer. Outlines the library in diagrams, colours "planned" tags
+  and the CAPIE value in the endorsement badge. Never a decorative rim. Sampled from the vanilla close button. **Brass Dim** (`brass-dim`) is for dashed
   strokes of planned items only; it fails contrast as small text.
 
 ### Tertiary
-- **Header Amber** (`header-amber`, game `§H`/`§Y`): section labels and one highlighted value per
-  view. Never body text.
+- **Header Amber** (`header-amber`, game `§H`/`§Y`): group labels that name a real layer or
+  column, the in-progress status, and at most one highlighted value per view. Never body text,
+  never a slogan.
 
 ### Neutral
 - **Window Ink** (`window-ink`): outer frames, the deepest layer.
@@ -227,8 +226,10 @@ CLI output.
 game itself would show a tooltip.
 
 ### Hierarchy
-- **Label caps** (700, 11.5 px, 0.14em tracking, uppercase, `header-amber`): section labels in
-  diagrams. Evokes the game's Orator headers without using that licensed face.
+- **Label caps** (700, 11.5 px, 0.14em tracking, uppercase, `header-amber`): the name of a real
+  group in a diagram ("HEARTS OF IRON IV 1.19.3.0", "WHAT HAPPENS"). Evokes the game's Orator
+  headers without using that licensed face. It is never a slogan ("EDIT WHERE YOU SEE IT") and
+  never an eyebrow that repeats the title under it.
 - **Node title** (700, 15 px, 18 px line): the name of a box in a diagram.
 - **Node body** (400, 12 px, 18 px line): one or two short lines under a title.
 - **Tag** (700, 10 px, 0.08em, uppercase): status tags inside boxes and badges.
@@ -268,7 +269,7 @@ surroundings (`field-ink` on `panel-umber`), never lighter.
 
 ## Shapes
 
-Near-square. Nodes, chips and badges use a 2 px radius, the outer diagram panel 6 px. Planned items
+Near-square. Nodes and badges use a 2 px radius, the outer diagram panel 6 px. Planned items
 keep the same shape with a dashed `brass-dim` stroke (`5 4`). In game, shapes come from vanilla
 sprites (`GFX_generic_bg2`, `GFX_tiles_dark_area_cut_8`, `GFX_button_94x31`).
 
@@ -326,21 +327,29 @@ sprites (`GFX_generic_bg2`, `GFX_tiles_dark_area_cut_8`, `GFX_button_94x31`).
 - **Wrong version:** `§O`CAPIE 1.0 loaded, Rename Anything needs 1.1`§!`.
 - Nothing is shown when no enabled mod uses CAPIE.
 
-### Web: diagram panel, nodes and chips
+### Web: diagram panel, nodes and columns
 - **Panel:** `panel-umber` fill, 1 px `panel-rim` inner frame, 6 px radius, 880 px wide.
 - **Node:** `field-ink` fill, 1.25 px `steel-bevel` stroke, 2 px radius, `node-title` +
-  `node-body`. The native layer: 1.75 px `brass` stroke.
-- **Chip today:** `olive-button` fill, `olive-lit` stroke, tag in `go-green`.
-- **Chip planned:** `field-ink` fill, dashed `brass-dim` stroke, tag in `brass`.
+  `node-body`. The native layer: 1.75 px `brass` stroke. A planned node keeps the shape with a
+  dashed `brass-dim` stroke.
+- **Columns inside a node:** the parts of one node are text columns separated by 1 px
+  `panel-rim` hairlines, never boxes inside the box. Text in `parchment` for parts that work
+  today, `khaki` for planned parts; the status is the `tag` under it (`go-green` TODAY, `brass`
+  PLANNED).
+- **Legend:** shows the line style that carries the status (solid for works today, dashed for
+  planned), not a coloured fill used nowhere else.
 - **Fallback path:** dashed `warning-rust` stroke, text in `caution-orange`.
+- **Numbered steps:** only where the order is the information (the edit-in-place story). A step
+  is a number in `ash`, a `node-title` and one `node-body` line, separated by hairlines; not a
+  stack of identical boxes.
 
 ### Web: badges
-- 22 px tall, 2 px radius, two parts: a `field-ink` key with an optional 12 px mark, and a value
-  part filled by state: `olive-button` for supported, `panel-umber` with a dashed `brass-dim` rim
-  for planned or in progress, `panel-umber` with a `warning-rust` rim for not supported.
+- 22 px tall, 2 px radius, two parts: a `field-ink` key and a value part, `olive-button` for
+  supported, `panel-umber` otherwise. No marks inside badges.
+- Every badge has the same 1 px `panel-rim` rim; a planned value uses a dashed `brass-dim` rim.
+  The state is carried by the value text colour alone (`go-green`, `header-amber`,
+  `caution-orange`, `brass`), never by a different coloured frame per badge.
 - Text in `tag` style: parchment on the key, the state colour on the value.
-- The product badge is the only place the two marks differ: the connector for CAPIE, the pencil
-  for Rename Anything.
 
 ### Web: status marks
 - **Works today:** filled `pencil-green-lit` square, 10 px.
@@ -351,8 +360,12 @@ sprites (`GFX_generic_bg2`, `GFX_tiles_dark_area_cut_8`, `GFX_button_94x31`).
 ### Iconography
 One drawing style for every icon: 20 px grid, 1.5 px strokes, flat fills from the palette, square
 corners rounded at most 1 px, no gloss.
+- **Where marks go:** the launcher's window and file icon, release pages and the site favicon.
+  Not before a heading, not inside a badge, not beside a box title in a diagram: the name
+  already says it.
 - **Pencil (Rename Anything mark):** in game, the vanilla sprite. On the web, our drawing: a
-  steel-framed square with a `pencil-green` pad and a diagonal `khaki` pencil.
+  steel-framed square with a `pencil-green` pad and a diagonal `khaki` pencil. In a diagram it
+  appears only where it shows the real in-game control (the edit-in-place story).
 - **Connector (CAPIE mark):** three short horizontal `brass` bars stacked on the left of a small
   `field-ink` plate, like a plug. In the CLI banner it is text only:
   `CAPIE (Cyprian's API Extender)`.
@@ -362,14 +375,17 @@ corners rounded at most 1 px, no gloss.
 - No emoji and no Unicode symbols as icons.
 
 ### Diagram motion
-- One idea per diagram: data moving between layers, one user story, or a flow with a fallback.
+- Motion only where the order of events is the content: the edit-in-place story and the branch
+  of the launch chain. A structure (the architecture layers) stays still.
+- No ambient pulses, no colour flashes or glowing strokes, and no motion on items marked planned
+  that would suggest they already run.
 - The resting frame is complete and true. Animations are written only inside
   `@media (prefers-reduced-motion: no-preference)`, so with reduced motion the final state shows.
 - CSS keyframes only. No SMIL (it ignores the reduced-motion query) and no script.
 - Easing `cubic-bezier(.16,1,.3,1)` for arrivals, linear for visibility switches, `steps()` for
   typing. No bounce, no elastic.
-- Loops: 3.2 s for pulses, 10 s for a story, 12 s for a two-branch flow. At least 20 % of every
-  loop is still. Pulses at most 3.5 px in radius. Nothing flashes more than once per second.
+- Loops: 10 s for a story, 12 s for a two-branch flow. At least 20 % of every loop is still.
+  Moving tokens at most 3.5 px in radius. Nothing flashes.
 
 ## Do's and Don'ts
 
@@ -385,14 +401,53 @@ corners rounded at most 1 px, no gloss.
 - **Do** use brass for the native layer in any diagram, whichever product the diagram is about.
 
 ### Don't:
+The same list is machine-readable in `tokens.json` under `avoid`. It applies to every surface:
+README, diagrams, sites, launcher, CLI and the game.
+
+Product rules:
 - **Don't** add a global floating button over portraits, decisions or other vanilla controls.
-- **Don't** use neon, cyan on dark, purple-blue gradients, glow or gradient text.
 - **Don't** use `§R` for anything that is not an error or a blocking condition.
 - **Don't** give CAPIE and Rename Anything different palettes, fonts or motion.
 - **Don't** put the CAPIE mark inside the Rename Anything panels.
 - **Don't** show player-entered text in a font without Polish glyphs.
 - **Don't** claim a feature in a diagram that the status table does not mark "Works today".
 - **Don't** write "Rename Anything API": the library is CAPIE.
+
+Visual anti-patterns (generic, templated looks that do not belong to the game):
+- **Don't** use side-tab accents: a coloured `border-left` or `border-right` thicker than 1 px on
+  cards, callouts, alerts or list items.
+- **Don't** use gradient text, gradient fills, glassmorphism or blur as decoration.
+- **Don't** use neon, glow, zero-offset coloured halos or colour-flash animations, and no cyan,
+  purple or blue-violet palettes.
+- **Don't** put cards, chips or boxes inside a card or node. Use columns and hairline dividers.
+- **Don't** build a page or diagram from a grid of identical icon + heading + text cards.
+- **Don't** use the hero-metric template (big number, small label, supporting stats, accent).
+- **Don't** use generic rounded rectangles with drop shadows. Radius stays at 2 px for nodes and
+  6 px for the outer panel; there are no drop shadows.
+- **Don't** use bounce or elastic easing.
+- **Don't** use pure black `#000` or pure white `#fff` on the web; use `window-ink` and
+  `parchment`.
+- **Don't** add decorative sparklines, progress rings or charts without real data.
+- **Don't** put an icon or mark above or before every heading, box title or badge.
+- **Don't** use monospace as a costume for "technical". Mono is for code, hashes and CLI output.
+- **Don't** centre everything. Text is left-aligned; centring is for a single short label in a
+  fixed box at most.
+- **Don't** use one uniform spacing value everywhere. Space follows relationship: 4 or 8 px
+  inside a group, 24 px between nodes, 32 px between layers.
+- **Don't** put an eyebrow or slogan in label caps above a heading.
+- **Don't** animate for atmosphere. Infinite motion must show a sequence the still frame cannot.
+- **Don't** use emoji or Unicode glyphs as icons.
+- **Don't** give each badge or box its own accent colour; one rim colour, state in the text.
+
+In game:
+- **Don't** draw custom sprites, frames or ornaments where a vanilla sprite exists. Custom
+  textures that remain (the old on-screen keyboard) use the token colours and the vanilla steel
+  bevel.
+- **Don't** colour text with `§` for emphasis. `§Y`/`§H` at most once per view (the edited
+  target), `§L` for labels and hints, `§R`/`§O`/`§G` only for state.
+- **Don't** use exclamation marks, "Successfully", success toasts or pop-ups.
+- **Don't** put the product name in an editor title or next to a pencil.
+- **Don't** put several identical icons in a row that differ only by tooltip.
 
 ## Voice and Tone
 

@@ -1,0 +1,18 @@
+[project]
+name = "pygments-paradox-script"
+version = "0.1.0"
+description = "Pygments lexers for Paradox (Clausewitz) script and localisation, used by the CAPIE and Rename Anything documentation sites."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["pygments>=2.19"]
+classifiers = ["Private :: Do Not Upload"]
+
+# Pygments finds plugin lexers through this entry-point group, so `paradox` and
+# `paradox-loc` code fences work in any Markdown tool that uses Pygments.
+[project.entry-points."pygments.lexers"]
+paradox = "pygments_paradox_script:ParadoxScriptLexer"
+paradox-loc = "pygments_paradox_script:ParadoxLocalisationLexer"
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.11"]
+build-backend = "uv_build"

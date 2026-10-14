@@ -19,6 +19,7 @@ Zensical and the local lexer are in the `docs` dependency group of the root `pyp
 ```powershell
 uv sync
 uv run python sites/shared/sync_shared.py              # copy the shared theme into both sites
+uv run python sites/shared/zensical_overrides.py       # Zensical assets without layout transitions
 uv run zensical build -f sites/capie/zensical.toml --clean --strict
 uv run zensical build -f sites/rename-anything/zensical.toml --clean --strict
 uv run zensical serve -f sites/capie/zensical.toml     # live preview on http://localhost:8000
@@ -51,6 +52,27 @@ site folder builds on its own and can move to its own repository unchanged. Run 
 change to the theme or the tokens; `--check` only reports drift (exit code 1) and suits CI.
 
 Diagrams that belong to one site live in that site (`rename-anything/docs/assets/diagrams/`).
+
+## Zensical override
+
+Zensical's bundled stylesheets and script animate layout properties (`max-height`, `width`,
+`height`) for the navigation, the language and version menus, the drawer overlay, the content
+tab indicator and two script components. The design system does not allow that, and the
+impeccable detector reports it even when `theme.css` overrides it in the cascade, because the
+original rules still ship. `shared/zensical_overrides.py` is the smallest fix: it copies only the
+three affected vendor files from the installed Zensical, removes the layout entries from their
+`transition` declarations (nothing else), and writes them to `<site>/overrides/`, which both
+`zensical.toml` files use as `custom_dir`. The folder is generated and gitignored; run the script
+before every build (the Pages templates do).
+
+When Zensical is upgraded, the asset names change (they carry a content hash) and the script
+stops with "missing in Zensical ...". Then:
+
+1. Find the new files under `.venv/Lib/site-packages/zensical/templates/assets/` that contain
+   `transition` with `max-height`, `width` or `height`, and put their paths in `VENDOR_FILES`.
+2. Run the script and read its diff against the vendor files: only `transition` values may change.
+3. Check that the replacements in `theme/stylesheets/theme.css` ("Motion" and "Page chrome") still
+   match the new components, build with `--strict`, and run the detector again.
 
 ## Syntax highlighting
 

@@ -34,7 +34,7 @@ goes to `sites/<site>/site/`, the build cache to `sites/<site>/.cache/`; both ar
 - `stylesheets/tokens.css`: generated from `docs/design/tokens.json` as `--capie-*` custom
   properties. Do not edit it; edit the tokens and run `sync_shared.py`.
 - `stylesheets/theme.css`: maps the tokens onto Zensical's variables, for the dark scheme (game
-  panels) and the light scheme (parchment and ink; those shades are derived and marked so in the
+  panels) and the light scheme (a field grey mixed from steel-bevel, and ink; those shades are derived and marked so in the
   file). It also defines the status marks (`<span class="st st-today">Works today</span>`,
   `st-progress`, `st-planned`, `st-not`), the `proposed` admonition and the
   `<span class="proposed-tag">Proposed, subject to change</span>` tag.

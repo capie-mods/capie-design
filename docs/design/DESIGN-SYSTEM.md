@@ -222,6 +222,12 @@ release pages may load it. SVGs shown on GitHub cannot load fonts and use the fa
 Tooltip-like asides use `'EB Garamond', Garamond, Georgia, serif`. Mono only for code, hashes and
 CLI output.
 
+On web pages no text is smaller than 11.5px: label caps keep their 11.5px, status tags and small
+chrome use 12px (the 10px `tag` size is for diagrams only), tables and code 14px, and body text
+keeps a measure of about 75 characters. The documentation sites also have a light page scheme for
+readers who ask for one; it is a field grey mixed from `steel-bevel` with white, never cream, and
+the footer and header stay `window-ink` in both schemes.
+
 **Character:** a sturdy humanist sans for everything you read, and a book serif only where the
 game itself would show a tooltip.
 

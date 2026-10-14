@@ -34,9 +34,9 @@ goes to `sites/<site>/site/`, the build cache to `sites/<site>/.cache/`; both ar
 
 - `stylesheets/tokens.css`: generated from `docs/design/tokens.json` as `--capie-*` custom
   properties. Do not edit it; edit the tokens and run `sync_shared.py`.
-- `stylesheets/theme.css`: maps the tokens onto Zensical's variables, for the dark scheme (game
-  panels) and the light scheme (a field grey mixed from steel-bevel, and ink; those shades are derived and marked so in the
-  file). It also defines the status marks (`<span class="st st-today">Works today</span>`,
+- `stylesheets/theme.css`: maps the tokens onto Zensical's variables for the dark scheme (game
+  panels) and the light scheme. The light scheme uses a field grey mixed from steel-bevel and
+  ink; those shades are derived, and the file marks them as such. It also defines the status marks (`<span class="st st-today">Works today</span>`,
   `st-progress`, `st-planned`, `st-not`), the `proposed` admonition and the
   `<span class="proposed-tag">Proposed, subject to change</span>` tag.
 - `marks/`: the CAPIE connector and the Rename Anything pencil as SVG (logo and favicon), plus
@@ -59,7 +59,8 @@ Zensical's bundled stylesheets and script animate layout properties (`max-height
 `height`) for the navigation, the language and version menus, the drawer overlay, the content
 tab indicator and two script components. The design system does not allow that, and the
 impeccable detector reports it even when `theme.css` overrides it in the cascade, because the
-original rules still ship. `shared/zensical_overrides.py` is the smallest fix: it copies only the
+original rules still ship. `shared/zensical_overrides.py` fixes it with as little change as
+possible: it copies only the
 three affected vendor files from the installed Zensical, removes the layout entries from their
 `transition` declarations (nothing else), and writes them to `<site>/overrides/`, which both
 `zensical.toml` files use as `custom_dir`. The folder is generated and gitignored; run the script

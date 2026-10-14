@@ -22,6 +22,7 @@ colors:
   alarm-red: "#ff3232"
   caution-orange: "#ff7019"
   warning-rust: "#c64811"
+  vermilion: "#b8432e"
 typography:
   label-caps:
     fontFamily: "Ubuntu, 'Segoe UI', 'DejaVu Sans', Verdana, sans-serif"
@@ -146,7 +147,7 @@ Both products use the same palette, type, spacing, marks, motion and voice. The 
 | | CAPIE | Rename Anything |
 |---|---|---|
 | Name on first mention | CAPIE (Cyprian's API Extender) | Rename Anything |
-| Mark (app and release icon only) | Three-slot connector | Pencil |
+| Mark (app and release icon only) | Overprint stamp | Pencil |
 | Leads on | Release pages, launcher, CLI, section for modders, in-game CAPIE indicators | Workshop page, top of the README, in-game panels |
 
 **The Endorsement Rule.** On a Rename Anything surface, CAPIE appears once, as the line "Built on
@@ -202,6 +203,11 @@ belongs to.
   `field-ink` (5.0:1).
 - **Caution Orange** (`caution-orange`, game `§O`) and **Warning Rust** (`warning-rust`): CAPIE is
   missing, the game version is unknown, a fallback path was taken.
+
+### Mark
+- **Vermilion** (`vermilion`): the overprint ink of the Overprint mark, and the strike rules of
+  Workshop section headers that echo it. A brand colour only: never a state, never text, never a
+  heading colour.
 
 **The One Accent Rule.** A view gets olive for actions plus at most one of amber, brass or a
 signal colour as its accent.
@@ -373,9 +379,14 @@ corners rounded at most 1 px, no gloss.
 - **Pencil (Rename Anything mark):** in game, the vanilla sprite. On the web, our drawing: a
   steel-framed square with a `pencil-green` pad and a diagonal `khaki` pencil. In a diagram it
   appears only where it shows the real in-game control (the edit-in-place story).
-- **Connector (CAPIE mark):** three short horizontal `brass` bars stacked on the left of a small
-  `field-ink` plate, like a plug. In the CLI banner it is text only:
-  `CAPIE (Cyprian's API Extender)`.
+- **Overprint (CAPIE mark, also the capie-mods organisation mark):** a perforated `parchment`
+  stamp with an `olive-button` field; the old name is a `khaki` bar near its foot, struck through
+  by two parallel `vermilion` bars, and the new name is a `brass` bar above them. The overprint
+  is tilted -7 degrees, as hand-fed overprints were. Two drawings share one geometry: bold (few
+  large perforations, for 48 px and under: favicons, the site logo) and detail (fine perforation
+  and a khaki frame, for 128 px and up). Files: `sites/shared/theme/marks/capie-mark.svg` (bold)
+  and `capie-mark-detail.svg`, copied from capie-mods/.github `tools/make_assets.py`. In the CLI
+  banner it is text only: `CAPIE (Cyprian's API Extender)`.
 - **Warning:** a triangle in `warning-rust` with a `parchment` bar and dot. In game, a vanilla
   warning sprite.
 - **Status marks:** as above.

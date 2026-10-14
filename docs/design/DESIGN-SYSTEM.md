@@ -130,8 +130,8 @@ for the native layer. No neon, no gradients, no glow. Status is said in words an
 simple, consistent mark.
 
 The North Star was derived from the product design context (native, legible, discreet; edit in
-place the way divisions, armies and fleets are renamed). The user has not yet confirmed it as a
-named metaphor.
+place the way divisions, armies and fleets are renamed). It is a working name for that context,
+not yet confirmed as the project's metaphor.
 
 **Key Characteristics:**
 - Edits happen in the panel that shows the object, next to its name.
@@ -283,8 +283,9 @@ sprites (`GFX_generic_bg2`, `GFX_tiles_dark_area_cut_8`, `GFX_button_94x31`).
   leader") and adds one `§R` line: "Next rename possible in 3 days (last change: 4 January 1936)."
 - **CAPIE missing:** hidden. In-place editing needs CAPIE; the scripted editor for states, cities
   and characters stays available.
-- **Not your object:** hidden. Players rename only their own country's objects (planned
-  exceptions: the host, and an overlord whose subject is another player).
+- **Not your object:** hidden. Players rename only their own country's objects. Subjects are
+  renamed by their overlord through a diplomatic action, and the lobby rule can let the host
+  rename every country.
 
 ### In-game: inline editor
 - **Container:** `GFX_generic_bg2`, 420 px wide, anchored to the edited name.

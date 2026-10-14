@@ -41,9 +41,8 @@ goes to `sites/<site>/site/`, the build cache to `sites/<site>/.cache/`; both ar
 - `marks/`: the CAPIE connector and the Rename Anything pencil as SVG (logo and favicon), plus
   the warning glyph.
 - `diagrams/`: SVG diagrams in the design system's style. `architecture.svg` and
-  `launch-chain.svg` are copies of the README diagrams in `docs/assets/readme/` (the
-  architecture copy follows the multiplayer decision: version check and banner instead of
-  refusing players). Animations are CSS only, run only under
+  `launch-chain.svg` are the same files as the README diagrams in `docs/assets/readme/`; change
+  both together. Animations are CSS only, run only under
   `prefers-reduced-motion: no-preference`, and move only along flows that work today; structure
   diagrams and planned flows stay still, as `docs/design/DESIGN-SYSTEM.md` requires.
 
@@ -96,7 +95,11 @@ repository a `pyproject.toml` with the `docs` group. The same applies to `rename
   today", "In progress", "Planned", "Not supported".
 - Label every code sample that is not implemented with the proposed tag and a `# PROPOSED`
   comment.
-- Current binaries keep their legacy `rename_anything_*` names until the planned rename to
-  `capie_*`; say so where file names appear.
+- The DLLs and the injector are `capie_*`. The launcher (`RenameAnythingLauncher.exe`) and the
+  install folder still carry the old name; say so where those names appear.
 - English, plain sentences, straight quotes, no dashes as punctuation, sentence-case headings
   (the voice rules in `docs/design/DESIGN-SYSTEM.md`).
+- Player pages of Rename Anything exist in English and Polish (`rename-anything/docs/pl/`). Change
+  both in the same edit; the Polish pages use the in-game Polish labels from
+  `mod/localisation/polish/` and Polish quotation marks.
+- Use the status legend (`<ul class="st-legend">`) once on a page that relies on the marks.

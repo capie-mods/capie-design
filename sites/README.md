@@ -11,6 +11,8 @@ behind Material for MkDocs:
 
 Nothing here is deployed yet. The sites are not published on GitHub Pages.
 
+Websites: [Rename Anything](https://capie-mods.github.io/rename-anything/) and [CAPIE](https://capie-mods.github.io/capie/).
+
 ## Build and preview
 
 Zensical and the local lexer are in the `docs` dependency group of the root `pyproject.toml`
